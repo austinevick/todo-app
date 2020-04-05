@@ -92,13 +92,13 @@ class _NotekeeperPageState extends State<NotekeeperPage> {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => AddNotePage(appBarTitle: 'Add Notes',
+                    builder: (context) => AddNotePage(
+                          appBarTitle: 'Add Notes',
                           updateNoteList: () => updateNoteList(),
                         )));
           }),
       appBar: AppBar(
         centerTitle: true,
-       
         backgroundColor: Color(0xffb716f2),
         title: Text('Notes'),
         actions: <Widget>[
@@ -168,10 +168,25 @@ class _NotekeeperPageState extends State<NotekeeperPage> {
                     );
                   }))
           : Center(
-              child: Text(
-                'No Notes',
-                style: TextStyle(
-                    fontSize: 30, color: Colors.grey.withOpacity(0.6)),
+              child: Column(mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(height: 150,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage('asset/note_icon.jpg'))),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      'No Notes',
+                      style: TextStyle(
+                          fontSize: 30, color: Colors.grey.withOpacity(0.6)),
+                    ),
+                  ),
+                ],
               ),
             ),
     );
@@ -182,7 +197,7 @@ class _NotekeeperPageState extends State<NotekeeperPage> {
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-         DrawerHeader(
+          DrawerHeader(
             child: Container(
               decoration: BoxDecoration(
                   image:
@@ -224,6 +239,19 @@ class _NotekeeperPageState extends State<NotekeeperPage> {
             ),
             title: Text(
               'Share',
+              style: Theme.of(context).textTheme.title,
+            ),
+            onTap: () {
+              Navigator.pop(context);
+            },
+          ),
+           ListTile(
+            leading: Icon(
+              Icons.contact_mail,
+              color: Color(0xff3f51b5),
+            ),
+            title: Text(
+              'Contact us',
               style: Theme.of(context).textTheme.title,
             ),
             onTap: () {
