@@ -1,4 +1,4 @@
-# todo_app
+# flutter_quick_note
 
 A new Flutter project.
 
