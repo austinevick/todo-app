@@ -1,7 +1,18 @@
 # flutter_quick_note
 
-A new Flutter project.
+Basic features
+- Perform CRUD operation
+- Speech recognition
+- Keep track of your activity
 
+![](screenshot/intropage.png)
+![](screenshot/addtaskpage.png)
+![](screenshot/drawer.png)
+![](screenshot/notepage.png)
+![](screenshot/todopage.png)
+![](screenshot/noteDetailpage.png)
+
+A new Flutter project.
 ## Getting Started
 
 This project is a starting point for a Flutter application.
