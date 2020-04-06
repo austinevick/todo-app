@@ -33,6 +33,7 @@ dependencies:
   share:   
   dynamic_theme:
   url_launcher:
+  flutter_local_notifications:
 
 dev_dependencies:
   flutter_test:

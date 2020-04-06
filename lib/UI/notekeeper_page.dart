@@ -2,8 +2,8 @@ import 'package:clipboard_manager/clipboard_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:todo_app/UI/add_notepage.dart';
-import 'package:todo_app/UI/home_page.dart';
 import 'package:todo_app/UI/note_detail_page.dart';
+import 'package:todo_app/UI/todoList_page.dart';
 import 'package:todo_app/models/note_db.dart';
 import 'package:todo_app/models/note_model.dart';
 

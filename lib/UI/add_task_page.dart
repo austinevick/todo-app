@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:intl/intl.dart';
 import 'package:todo_app/models/taskModel.dart';
 import 'package:todo_app/models/todoHelper.dart';
@@ -20,6 +23,7 @@ class AddTaskPage extends StatefulWidget {
 
 class _AddTaskPageState extends State<AddTaskPage> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
   DateFormat dateFormat = DateFormat('MMM dd, yyyy');
   TextEditingController titleController = TextEditingController();
   TextEditingController dateController = TextEditingController();
@@ -38,7 +42,42 @@ class _AddTaskPageState extends State<AddTaskPage> {
       timeController.text = widget.taskModel.time;
     }
     dateController.text = DateFormat.yMMMd().format(_selectedDate);
+    flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+    var android = new AndroidInitializationSettings('@mipmap/ic_launcher');
+    var iOS = new IOSInitializationSettings();
+    var initSetttings = new InitializationSettings(android, iOS);
+    flutterLocalNotificationsPlugin.initialize(initSetttings,
+        onSelectNotification: onSelectNotification);
+    Timer(Duration(hours: _selectedTime.hour, minutes: _selectedTime.minute),
+        () {
+return showScheduledNotification();
+
+    });
+
     super.initState();
+  }
+
+  showScheduledNotification() async {
+    var androidPlatformChannelSpecifics = AndroidNotificationDetails(
+        'your channel id', 'your channel name', 'your channel description',
+        importance: Importance.Max, priority: Priority.High, ticker: 'ticker');
+    var iOSPlatformChannelSpecifics = IOSNotificationDetails();
+    var platformChannelSpecifics = NotificationDetails(
+        androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+    await flutterLocalNotificationsPlugin.show(
+        0, 'plain title', 'plain body', platformChannelSpecifics,
+        payload: 'item x');
+  }
+
+  Future onSelectNotification(String payload) {
+    debugPrint("payload : $payload");
+    return showDialog(
+      context: context,
+      builder: (_) => new AlertDialog(
+        title: new Text('Notification'),
+        content: new Text('$payload'),
+      ),
+    );
   }
 
   void _pickUserDueDate() {

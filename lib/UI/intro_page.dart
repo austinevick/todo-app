@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:todo_app/UI/home_page.dart';
 import 'package:todo_app/UI/notekeeper_page.dart';
 
 class IntroPage extends StatefulWidget {
