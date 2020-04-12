@@ -45,7 +45,7 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
           IconButton(
               icon: Icon(
                 Icons.share,
-                size: 25,
+                size: 28,
               ),
               onPressed: () {
                 final RenderBox box = context.findRenderObject();
@@ -58,7 +58,7 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
             child: IconButton(
                 icon: Icon(
                   Icons.content_copy,
-                  size: 25,
+                  size: 28,
                 ),
                 onPressed: () {
                   ClipboardManager.copyToClipBoard(widget.noteModel.title)
@@ -78,7 +78,7 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
                 icon: Icon(
                   Icons.delete,
                   color: Colors.white,
-                  size: 25,
+                  size: 28,
                 ),
                 onPressed: () {
                   if (widget.noteModel != null) {

@@ -86,7 +86,7 @@ class _NotekeeperPageState extends State<NotekeeperPage> {
       floatingActionButton: FloatingActionButton(
           backgroundColor: Color(0xffb716f2),
           child: Icon(
-            Icons.add,
+            Icons.add,size: 30,
           ),
           onPressed: () {
             Navigator.push(
@@ -263,20 +263,4 @@ class _NotekeeperPageState extends State<NotekeeperPage> {
     );
   }
 }
-/*
-IconButton(
-                           icon: Icon(Icons.content_copy),
-                                onPressed: () {
-                                  ClipboardManager.copyToClipBoard(
-                                          noteList[index].title)
-                                      .then((result) {
-                                    final snackBar = SnackBar(
-                                      content: Text('Copied to Clipboard'),
-                                      action: SnackBarAction(
-                                          label: 'Undo', onPressed: () {}),
-                                    );
-                                    Scaffold.of(context).showSnackBar(snackBar);
-                                  });
-                                })
 
-*/
