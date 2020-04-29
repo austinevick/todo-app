@@ -6,6 +6,7 @@ import 'package:todo_app/models/note_db.dart';
 import 'package:todo_app/models/note_model.dart';
 
 class AddNotePage extends StatefulWidget {
+  static const String id = 'add_note_page';
   final String appBarTitle;
   final NoteModel note;
   final Function updateNoteList;
