@@ -5,7 +5,6 @@ Basic features
 - Speech recognition
 - Keep track of your activity
 
-![](screenshot/intropage.png)
 ![](screenshot/addtaskpage.png)
 ![](screenshot/drawer.png)
 ![](screenshot/notepage.png)
