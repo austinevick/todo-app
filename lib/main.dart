@@ -1,6 +1,7 @@
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app/UI/notekeeper_page.dart';
+import 'package:todo_app/UI/todoList_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
       themedWidgetBuilder: (context, theme) => MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Quick Note',
-        home: NotekeeperPage(),
+        home: TodoListPage()
       ),
     );
   }

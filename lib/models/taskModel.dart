@@ -4,10 +4,9 @@ class TaskModel {
   String date;
   String time;
   int completed;
-  bool selected = false;
 
   TaskModel(
-      {this.id, this.date, this.time, this.title, this.completed,this.selected});
+      {this.id, this.date, this.time, this.title, this.completed});
 
   Map<String, dynamic> toMap() {
     return {

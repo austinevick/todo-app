@@ -99,25 +99,26 @@ class _NotekeeperPageState extends State<NotekeeperPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        //   drawer: buildDrawer(),
         floatingActionButton: FloatingActionButton(
             backgroundColor: Color(0xffb716f2),
             child: Icon(
               Icons.add,
               size: 30,
             ),
-            onPressed: () {
-              Navigator.push(
+            onPressed: () async{
+             bool result = await Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => AddNotePage(
                             updateNoteList: () => updateNoteList(),
                             appBarTitle: 'Add Notes',
                           )));
+                           if(result == true){
+                          updateNoteList();
+                        }
             }),
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          centerTitle: true,
           backgroundColor: Color(0xffb716f2),
           title: Text('Notes'),
           actions: <Widget>[
@@ -174,6 +175,7 @@ class _NotekeeperPageState extends State<NotekeeperPage> {
                                     updateNoteList: () => updateNoteList(),
                                     noteModel: noteList[index],
                                   )));
+                                  
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),

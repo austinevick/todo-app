@@ -10,7 +10,7 @@ import 'add_notepage.dart';
 class NoteDetailPage extends StatefulWidget {
   static const String id = 'note_detail_page';
   final NoteModel noteModel;
-  final Function updateNoteList;
+  final VoidCallback updateNoteList;
   NoteDetailPage({
     this.updateNoteList,
     this.noteModel,
@@ -19,7 +19,8 @@ class NoteDetailPage extends StatefulWidget {
   @override
   _NoteDetailPageState createState() => _NoteDetailPageState();
 }
-//
+
+
 class _NoteDetailPageState extends State<NoteDetailPage> {
   Notehelper notehelper = Notehelper();
   @override
@@ -28,17 +29,18 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
       floatingActionButton: FloatingActionButton(
           backgroundColor: Color(0xffb716f2),
           child: Icon(Icons.edit),
-          onPressed: () async {
-            var result = await Navigator.push(
+          onPressed: () async{
+           bool result = await Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) => AddNotePage(
+                          updateNoteList: () => widget.updateNoteList,
                           appBarTitle: 'Modify Notes',
                           note: widget.noteModel,
                         )));
-           if(result == true){
-             result = widget.noteModel;
-           }
+                        if(result == true){
+                          widget.updateNoteList();
+                        }
           }),
       appBar: AppBar(
         actions: <Widget>[

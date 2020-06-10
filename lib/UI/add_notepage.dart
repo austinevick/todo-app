@@ -7,7 +7,7 @@ class AddNotePage extends StatefulWidget {
   static const String id = 'add_note_page';
   final String appBarTitle;
   final NoteModel note;
-  final Function updateNoteList;
+  final VoidCallback updateNoteList;
 
   AddNotePage({this.note, this.updateNoteList, this.appBarTitle});
   @override
@@ -24,16 +24,15 @@ class _AddNotePageState extends State<AddNotePage> {
       _formkey.currentState.save();
       NoteModel noteModel = NoteModel(title: titleController.text);
       if (widget.note == null) {
-        notehelper.insertNote(noteModel);
-        widget.updateNoteList();
-        Navigator.pop(context);
+       notehelper.insertNote(noteModel);
       } else {
-        notehelper.updateNote(noteModel);
-
-        Navigator.pop(context, true);
-        widget.updateNoteList();
+        noteModel.id = widget.note.id;
+      notehelper.updateNote(noteModel);
       }
-    }
+      Navigator.of(context).pop(true);
+      widget.updateNoteList();
+      }
+
   }
 
   @override
