@@ -6,7 +6,6 @@ Basic features
 - Keep track of your activity
 
 ![](screenshot/addtaskpage.png)
-![](screenshot/drawer.png)
 ![](screenshot/notepage.png)
 ![](screenshot/todopage.png)
 ![](screenshot/noteDetailpage.png)
