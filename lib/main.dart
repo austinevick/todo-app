@@ -11,11 +11,15 @@ class MyApp extends StatelessWidget {
     return DynamicTheme(
       defaultBrightness: Brightness.light,
       data: (brightness) =>
-          new ThemeData(primarySwatch: Colors.indigo, brightness: brightness),
+          new ThemeData(primarySwatch: Colors.indigo,
+           brightness: brightness),
       themedWidgetBuilder: (context, theme) => MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Quick Note',
-        home: TodoListPage()
+        home: NotekeeperPage(),
+        routes: {
+       '/home':  (context)=> NotekeeperPage()
+        },
       ),
     );
   }

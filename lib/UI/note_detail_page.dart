@@ -8,7 +8,6 @@ import 'package:todo_app/models/note_model.dart';
 import 'add_notepage.dart';
 
 class NoteDetailPage extends StatefulWidget {
-  static const String id = 'note_detail_page';
   final NoteModel noteModel;
   final VoidCallback updateNoteList;
   NoteDetailPage({
@@ -20,7 +19,6 @@ class NoteDetailPage extends StatefulWidget {
   _NoteDetailPageState createState() => _NoteDetailPageState();
 }
 
-
 class _NoteDetailPageState extends State<NoteDetailPage> {
   Notehelper notehelper = Notehelper();
   @override
@@ -29,8 +27,8 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
       floatingActionButton: FloatingActionButton(
           backgroundColor: Color(0xffb716f2),
           child: Icon(Icons.edit),
-          onPressed: () async{
-           bool result = await Navigator.push(
+          onPressed: () async {
+            bool result = await Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) => AddNotePage(
@@ -38,9 +36,11 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
                           appBarTitle: 'Modify Notes',
                           note: widget.noteModel,
                         )));
-                        if(result == true){
-                          widget.updateNoteList();
-                        }
+            if (result == true) {
+              setState(() {
+                widget.updateNoteList();
+              });
+            }
           }),
       appBar: AppBar(
         actions: <Widget>[
@@ -92,12 +92,17 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
                                   borderSide: BorderSide.none,
                                   borderRadius: BorderRadius.circular(20)),
                               title: Center(
-                                child: Text(
-                                  'Delete Note',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline6
-                                      .copyWith(color: Colors.pink),
+                                child: Column(
+                                  children: <Widget>[
+                                    Text(
+                                      'Delete Note',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline6
+                                          .copyWith(color: Colors.pink),
+                                    ),
+                                    Divider(thickness: 2,)
+                                  ],
                                 ),
                               ),
                               content: Text(
@@ -117,11 +122,15 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
                                           Theme.of(context).textTheme.headline6,
                                     )),
                                 FlatButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                      notehelper.deleteAllNote();
-                                      widget.updateNoteList();
-                                      widget.noteModel.title = '';
+                                    onPressed: () async {
+                                      await notehelper
+                                          .deleteNote(widget.noteModel.id);
+                                      setState(() {
+                                        widget.updateNoteList();
+
+                                        widget.noteModel.title = '';
+                                      });
+                                      Navigator.of(context).pop();
                                     },
                                     child: Text(
                                       'ok'.toUpperCase(),

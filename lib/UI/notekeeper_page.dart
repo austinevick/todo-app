@@ -8,7 +8,6 @@ import 'package:todo_app/models/note_db.dart';
 import 'package:todo_app/models/note_model.dart';
 
 class NotekeeperPage extends StatefulWidget {
-  static const String id = 'home_screen';
   @override
   _NotekeeperPageState createState() => _NotekeeperPageState();
 }
@@ -99,7 +98,7 @@ class _NotekeeperPageState extends State<NotekeeperPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        floatingActionButton: FloatingActionButton(
+        floatingActionButton: FloatingActionButton(elevation: 5,
             backgroundColor: Color(0xffb716f2),
             child: Icon(
               Icons.add,

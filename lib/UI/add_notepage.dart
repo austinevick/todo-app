@@ -4,7 +4,6 @@ import 'package:todo_app/models/note_db.dart';
 import 'package:todo_app/models/note_model.dart';
 
 class AddNotePage extends StatefulWidget {
-  static const String id = 'add_note_page';
   final String appBarTitle;
   final NoteModel note;
   final VoidCallback updateNoteList;
@@ -25,6 +24,7 @@ class _AddNotePageState extends State<AddNotePage> {
       NoteModel noteModel = NoteModel(title: titleController.text);
       if (widget.note == null) {
        notehelper.insertNote(noteModel);
+       Fluttertoast.showToast(msg: 'Note saved');
       } else {
         noteModel.id = widget.note.id;
       notehelper.updateNote(noteModel);

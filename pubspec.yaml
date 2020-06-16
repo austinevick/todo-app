@@ -30,11 +30,13 @@ dependencies:
   speech_recognition:
   flutter_staggered_grid_view:
   clipboard_manager: 
+  overlay_support:
   share:   
   dynamic_theme:
   url_launcher:
   flutter_local_notifications:
   shared_preferences:
+  flutter_autolink_text:
 
 dev_dependencies:
   flutter_test:
