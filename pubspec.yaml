@@ -27,10 +27,9 @@ dependencies:
   sqflite:
   path_provider:
   fluttertoast:
-  speech_recognition:
   flutter_staggered_grid_view:
   clipboard_manager: 
-  overlay_support:
+  provider:
   share:   
   dynamic_theme:
   url_launcher:
