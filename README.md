@@ -1,14 +1,4 @@
-# flutter_quick_note
-
-Basic features
-- Perform CRUD operation
-- Speech recognition
-- Keep track of your activity
-
-![](screenshot/addtaskpage.png)
-![](screenshot/notepage.png)
-![](screenshot/todopage.png)
-![](screenshot/noteDetailpage.png)
+# todo-app
 
 A new Flutter project.
 ## Getting Started
