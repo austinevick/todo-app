@@ -36,8 +36,8 @@ dependencies:
   flutter_local_notifications:
   shared_preferences:
   table_calendar: 
-  calendar_timeline: 
-  random_color:   
+  random_color: 
+  liquid_pull_to_refresh: 
 
   
 

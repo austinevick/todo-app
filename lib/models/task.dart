@@ -20,7 +20,7 @@ class Task {
         title: map['title'],
         date: map['date'],
         categories: map['categories'],
-        complete: map['complete']);
+        complete: map['completed']);
   }
 
   Map<String, dynamic> toMap() {
@@ -29,7 +29,7 @@ class Task {
       'title': this.title,
       'categories': this.categories,
       'date': this.date,
-      'complete': this.complete
+      'completed': this.complete
     };
   }
 

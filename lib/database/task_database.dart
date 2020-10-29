@@ -11,6 +11,7 @@ class TaskDatabaseHelper {
   static const String TABLE = 'task';
   static const String DATE = 'date';
   static const String CATEGORIES = 'categories';
+  static const String COMPLETED = 'completed';
   static const String DB_NAME = 'task.db';
 
   Future<Database> get db async {
@@ -29,7 +30,7 @@ class TaskDatabaseHelper {
 
   createDatabase(Database db, int version) async {
     await db.execute(
-        'CREATE TABLE $TABLE ($ID INTEGER PRIMARY KEY, $TITLE TEXT, $CATEGORIES TEXT,$DATE TEXT)');
+        'CREATE TABLE $TABLE ($ID INTEGER PRIMARY KEY, $TITLE TEXT, $CATEGORIES TEXT,$DATE TEXT, $COMPLETED INTEGER)');
   }
 
   Future<Task> saveTask(Task task) async {
@@ -45,7 +46,7 @@ class TaskDatabaseHelper {
     var dbClient = await db;
     List<Map> maps = await dbClient.query(
       TABLE,
-      columns: [ID, TITLE, DATE, CATEGORIES],
+      columns: [ID, TITLE, DATE, CATEGORIES, COMPLETED],
     );
     List<Task> taskList = [];
     if (maps != null) {

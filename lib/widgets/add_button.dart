@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 class AddButton extends StatelessWidget {
   final Function onTap;
+  final IconData icon;
 
-  const AddButton({Key key, this.onTap}) : super(key: key);
+  const AddButton({Key key, this.icon, this.onTap}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -19,7 +20,7 @@ class AddButton extends StatelessWidget {
                 border: Border.all(
                   color: Colors.blue,
                 )),
-            child: Icon(Icons.add)),
+            child: Icon(icon)),
       ),
     );
   }
