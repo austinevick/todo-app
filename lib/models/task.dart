@@ -1,11 +1,11 @@
 import 'category.dart';
 
 class Task {
-  final String id;
+  int id;
   final String title;
   final List<TaskCategory> categories;
   final String date;
-  final bool complete;
+  int complete;
   Task({
     this.id,
     this.title,

@@ -27,9 +27,6 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
           ),
         ],
       ),
-      appBar: AppBar(
-        title: Text('Task Manager'),
-      ),
       body: screens[selectedIndex],
     );
   }
