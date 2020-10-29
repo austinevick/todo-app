@@ -1,11 +1,4 @@
-# flutter_quick_note
-
-Basic features
-- Perform CRUD operation
-- Speech recognition
-- Keep track of your activity
-
-
+# todo-app
 
 A new Flutter project.
 ## Getting Started
