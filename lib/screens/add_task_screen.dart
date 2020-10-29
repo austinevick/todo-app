@@ -7,7 +7,7 @@ class AddTaskScreen extends StatefulWidget {
 
 class _AddTaskScreenState extends State<AddTaskScreen> {
   final titleController = new TextEditingController();
-
+  var currentTime = TimeOfDay.now();
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -24,16 +24,19 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Add task',
+                  style: TextStyle(fontSize: 22),
+                ),
               ),
               Divider(
                 thickness: 2,
               ),
-              SizedBox(
-                height: 10,
-              ),
               Padding(
                 padding: const EdgeInsets.only(right: 8, left: 8),
-                child: TextField(
+                child: TextFormField(
+                  validator: (value) =>
+                      value.isEmpty ? 'Please enter a title' : null,
                   cursorWidth: 1.5,
                   textCapitalization: TextCapitalization.sentences,
                   textInputAction: TextInputAction.next,
@@ -52,6 +55,32 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               ),
               SizedBox(
                 height: 10,
+              ),
+              Row(
+                // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  FlatButton(
+                      onPressed: () async {
+                        var time = await showTimePicker(
+                          context: context,
+                          initialTime: TimeOfDay.now(),
+                        );
+                        if (time != null) {
+                          setState(() => currentTime = time);
+                        }
+                      },
+                      child: Icon(
+                        Icons.timer,
+                        size: 30,
+                      )),
+                  Text(
+                    '${currentTime.format(context)}',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ],
+              ),
+              Row(
+                children: [Icon(Icons.category)],
               ),
               ButtonBar(
                 buttonHeight: 45,
@@ -82,5 +111,5 @@ void openCustomDialog({BuildContext context, Widget child}) {
       barrierDismissible: true,
       barrierLabel: '',
       context: context,
-      pageBuilder: (context, animation1, animation2) {});
+      pageBuilder: (context, animation1, animation2) => null);
 }
