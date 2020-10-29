@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:todo_app/screens/add_task_screen.dart';
 import 'package:todo_app/widgets/add_button.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -11,7 +12,10 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         actions: [
           AddButton(
-            onTap: () => print('hi'),
+            onTap: () => openCustomDialog(
+              context: context,
+              child: AddTaskScreen(),
+            ),
           )
         ],
         title: Text('Schedule'),
