@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app/screens/home_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_app/provider/provider.dart';
+import 'package:todo_app/screens/bottom_navbar.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData.dark(),
-      debugShowCheckedModeBanner: false,
-      title: 'Quick Note',
-      home: HomeScreen(),
+    return ChangeNotifierProvider(
+      create: (context) => UiSettings(),
+      child: MaterialApp(
+        theme: ThemeData.dark(),
+        debugShowCheckedModeBanner: false,
+        title: 'Quick Note',
+        home: BottomNavBarScreen(),
+      ),
     );
   }
 }
