@@ -27,4 +27,9 @@ class TaskProvider extends ChangeNotifier {
   void deleteTask(int id) {
     databaseHelper.deleteTask(id);
   }
+
+  void completedTask(Task task, bool value) {
+    task.complete = value ? 1 : 0;
+    notifyListeners();
+  }
 }

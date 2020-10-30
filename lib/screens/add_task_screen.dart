@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:todo_app/models/category.dart';
 import 'package:todo_app/models/task.dart';
 import 'package:todo_app/provider/task_provider.dart';
 
@@ -16,6 +17,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
   final titleController = new TextEditingController();
   var currentTime = DateFormat('HH:mm').format(DateTime.now());
   var items = ['one', 'two', 'three'];
+
   String initialValue = 'one';
 
   @override
