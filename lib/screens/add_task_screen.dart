@@ -4,6 +4,9 @@ import 'package:todo_app/models/task.dart';
 import 'package:todo_app/provider/task_provider.dart';
 
 class AddTaskScreen extends StatefulWidget {
+  final Task task;
+
+  const AddTaskScreen({Key key, this.task}) : super(key: key);
   @override
   _AddTaskScreenState createState() => _AddTaskScreenState();
 }
@@ -13,6 +16,15 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
   var currentTime = TimeOfDay.now();
   var items = ['one', 'two', 'three'];
   String initialValue = 'one';
+
+  @override
+  void initState() {
+    if (widget.task != null) {
+      titleController.text = widget.task.title;
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -110,16 +122,35 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                   children: <Widget>[
                     Container(
                         color: Colors.green,
-                        width: 200,
+                        width: 100,
+                        child: FlatButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                              tasks.deleteTask(widget.task.id);
+                              tasks.fetchTask();
+                            },
+                            child: Text(
+                              'Delete',
+                              style: TextStyle(fontSize: 20),
+                            ))),
+                    Container(
+                        color: Colors.green,
+                        width: 100,
                         child: FlatButton(
                             onPressed: () {
                               Navigator.of(context).pop();
                               Task task = new Task(
                                   title: titleController.text,
                                   date: currentTime.format(context).toString());
-                              task.complete = 0;
-                              tasks.addTask(task);
-                              print(task);
+                              if (widget.task == null) {
+                                task.complete = 0;
+                                tasks.addTask(task);
+                                print(task);
+                              } else {
+                                task.id = widget.task.id;
+                                tasks.updateTask(task);
+                              }
+                              tasks.fetchTask();
                             },
                             child: Text(
                               'Done',

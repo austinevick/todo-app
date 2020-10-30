@@ -16,21 +16,26 @@ class _HomeScreenState extends State<HomeScreen> {
   final CalendarController calendarController = CalendarController();
   @override
   void initState() {
-    Provider.of<TaskProvider>(context, listen: false).fetchTask();
+    Provider.of<TaskProvider>(
+      context,
+      listen: false,
+    ).fetchTask();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
         actions: [
-          AddButton(icon: Icons.refresh, onTap: () {}),
           AddButton(
             icon: Icons.add,
             onTap: () => openCustomDialog(
               context: context,
-              child: AddTaskScreen(),
+              child: AddTaskScreen(
+                key: ValueKey('add'),
+              ),
             ),
           )
         ],
@@ -53,49 +58,47 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Expanded(
                 flex: 4,
-                child: LiquidPullToRefresh(
-                  onRefresh: () {
-                    return Provider.of<TaskProvider>(
+                child: ListView.builder(
+                    itemCount: tasksProvider.taskList.length,
+                    itemBuilder: (
                       context,
-                      listen: false,
-                    ).fetchTask();
-                  },
-                  child: ListView.builder(
-                      itemCount: tasksProvider.taskList.length,
-                      itemBuilder: (
-                        context,
-                        index,
-                      ) {
-                        final task = tasksProvider.taskList[index];
-                        return Card(
-                          child: ListTile(
-                            title: Text(task.title),
-                            subtitle: Text('Personal'),
-                            trailing: Checkbox(
-                              onChanged: (value) {},
-                              value: false,
-                            ),
-                            leading: Container(
-                              height: 60,
-                              alignment: Alignment.center,
-                              width: 60,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8),
-                                  border: Border.all(
-                                    color: Colors.blue,
-                                  )),
-                              child: Text(
-                                task.date,
-                                style: TextStyle(
-                                  fontSize: 11,
+                      index,
+                    ) {
+                      final task = tasksProvider.taskList[index];
+                      return Card(
+                        child: ListTile(
+                          onTap: () => openCustomDialog(
+                              context: context,
+                              child: AddTaskScreen(
+                                key: ValueKey('update'),
+                                task: task,
+                              )),
+                          title: Text(task.title),
+                          subtitle: Text('Personal'),
+                          trailing: Checkbox(
+                            onChanged: (value) {},
+                            value: false,
+                          ),
+                          leading: Container(
+                            height: 60,
+                            alignment: Alignment.center,
+                            width: 60,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                border: Border.all(
                                   color: Colors.blue,
-                                ),
+                                )),
+                            child: Text(
+                              task.date,
+                              style: TextStyle(
+                                fontSize: 11,
+                                color: Colors.blue,
                               ),
                             ),
                           ),
-                        );
-                      }),
-                ))
+                        ),
+                      );
+                    }))
           ],
         ),
       ),

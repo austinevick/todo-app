@@ -19,4 +19,12 @@ class TaskProvider extends ChangeNotifier {
     databaseHelper.saveTask(task);
     notifyListeners();
   }
+
+  void updateTask(Task task) {
+    databaseHelper.updateTask(task);
+  }
+
+  void deleteTask(int id) {
+    databaseHelper.deleteTask(id);
+  }
 }
