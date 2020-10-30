@@ -2,9 +2,9 @@ import 'category.dart';
 
 class Task {
   int id;
-  final String title;
-  final List<TaskCategory> categories;
-  final String date;
+  String title;
+  List<TaskCategory> categories;
+  String date;
   int complete;
   Task({
     this.id,

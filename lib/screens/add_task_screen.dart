@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/models/task.dart';
 import 'package:todo_app/provider/task_provider.dart';
@@ -13,7 +14,7 @@ class AddTaskScreen extends StatefulWidget {
 
 class _AddTaskScreenState extends State<AddTaskScreen> {
   final titleController = new TextEditingController();
-  var currentTime = TimeOfDay.now();
+  var currentTime = DateFormat('HH:mm').format(DateTime.now());
   var items = ['one', 'two', 'three'];
   String initialValue = 'one';
 
@@ -21,6 +22,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
   void initState() {
     if (widget.task != null) {
       titleController.text = widget.task.title;
+      currentTime = widget.task.date;
     }
     super.initState();
   }
@@ -84,7 +86,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                             initialTime: TimeOfDay.now(),
                           );
                           if (time != null) {
-                            setState(() => currentTime = time);
+                            setState(() => currentTime = time.format(context));
                           }
                         },
                         child: Icon(
@@ -92,7 +94,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                           size: 30,
                         )),
                     Text(
-                      '${currentTime.format(context)}',
+                      '$currentTime',
                       style: TextStyle(fontSize: 20),
                     ),
                   ],
@@ -141,7 +143,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                               Navigator.of(context).pop();
                               Task task = new Task(
                                   title: titleController.text,
-                                  date: currentTime.format(context).toString());
+                                  date: currentTime);
                               if (widget.task == null) {
                                 task.complete = 0;
                                 tasks.addTask(task);
