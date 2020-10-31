@@ -8,7 +8,7 @@ import 'package:todo_app/provider/task_provider.dart';
 import 'package:todo_app/screens/add_task_screen.dart';
 import 'package:todo_app/widgets/add_button.dart';
 
-enum TaskState {
+enum TaskFilter {
   ALLTASKS,
   COMPLETEDTASKS,
 }
@@ -49,18 +49,18 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          PopupMenuButton(onSelected: (TaskState selectedValue) {
-            if (selectedValue == TaskState.ALLTASKS) {
+          PopupMenuButton(onSelected: (TaskFilter selectedValue) {
+            if (selectedValue == TaskFilter.ALLTASKS) {
             } else {}
           }, itemBuilder: (context) {
             return [
               PopupMenuItem(
                 child: Text('All Task'),
-                value: TaskState.ALLTASKS,
+                value: TaskFilter.ALLTASKS,
               ),
               PopupMenuItem(
                 child: Text('Completed Task'),
-                value: TaskState.COMPLETEDTASKS,
+                value: TaskFilter.COMPLETEDTASKS,
               ),
             ];
           })
@@ -83,42 +83,46 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           Expanded(
               flex: 4,
-              child: ListView.builder(
-                  itemCount: tasksProvider.taskList.length,
-                  itemBuilder: (context, index) {
-                    final task = tasksProvider.taskList[index];
-                    return Card(
-                      color: randomColor.randomColor(
-                          colorBrightness: ColorBrightness.dark),
-                      child: ListTile(
-                        onTap: () => openCustomDialog(
-                            context: context,
-                            child: AddTaskScreen(
-                              key: ValueKey('update'),
-                              task: task,
-                            )),
-                        title: Text(task.title),
-                        subtitle: Text('Personal'),
-                        leading: Container(
-                          height: 60,
-                          alignment: Alignment.center,
-                          width: 60,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              border: Border.all(
-                                color: Colors.lightBlueAccent,
-                              )),
-                          child: Text(
-                            task.date,
-                            style: TextStyle(
-                              fontSize: 11,
-                              color: Colors.blue,
+              child: tasksProvider.taskList.isEmpty
+                  ? Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : ListView.builder(
+                      itemCount: tasksProvider.taskList.length,
+                      itemBuilder: (context, index) {
+                        final task = tasksProvider.taskList[index];
+                        return Card(
+                          color: randomColor.randomColor(
+                              colorBrightness: ColorBrightness.dark),
+                          child: ListTile(
+                            onTap: () => openCustomDialog(
+                                context: context,
+                                child: AddTaskScreen(
+                                  key: ValueKey('update'),
+                                  task: task,
+                                )),
+                            title: Text(task.title),
+                            subtitle: Text('Personal'),
+                            leading: Container(
+                              height: 60,
+                              alignment: Alignment.center,
+                              width: 60,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  border: Border.all(
+                                    color: Colors.lightBlueAccent,
+                                  )),
+                              child: Text(
+                                task.date,
+                                style: TextStyle(
+                                  fontSize: 11,
+                                  color: Colors.blue,
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                      ),
-                    );
-                  }))
+                        );
+                      }))
         ],
       ),
     );
