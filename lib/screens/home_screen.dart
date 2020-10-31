@@ -99,13 +99,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             )),
                         title: Text(task.title),
                         subtitle: Text('Personal'),
-                        trailing: Checkbox(
-                          onChanged: (value) {
-                            tasksProvider.completedTask(task, value);
-                            tasksProvider.updateTask(task);
-                          },
-                          value: task.complete == 1 ? true : false,
-                        ),
                         leading: Container(
                           height: 60,
                           alignment: Alignment.center,
