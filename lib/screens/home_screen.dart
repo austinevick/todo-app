@@ -45,9 +45,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 icon: Icons.add,
                 onTap: () => showGeneralDialog(
                     transitionDuration: Duration(milliseconds: 400),
+                    barrierDismissible: true,
+                    barrierLabel: '',
                     barrierColor: Colors.black.withOpacity(0.5),
-                    // pageBuilder: (context, animation1, animation2) => null),
-
                     transitionBuilder:
                         (ctx, animation, secondaryAnimation, widget) =>
                             CustomDialog(

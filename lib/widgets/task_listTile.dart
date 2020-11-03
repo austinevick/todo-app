@@ -3,6 +3,7 @@ import 'package:todo_app/models/task.dart';
 import 'package:todo_app/screens/add_task_screen.dart';
 
 import 'bottom_sheet.dart';
+import 'custom_dialog.dart';
 
 class TaskListTile extends StatelessWidget {
   final Task task;
@@ -11,12 +12,21 @@ class TaskListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      onTap: () => openCustomDialog(
+      onTap: () => showGeneralDialog(
+          transitionDuration: Duration(milliseconds: 400),
+          barrierDismissible: true,
+          barrierLabel: '',
+          barrierColor: Colors.black.withOpacity(0.5),
+          transitionBuilder: (ctx, animation, secondaryAnimation, widget) =>
+              CustomDialog(
+                primaryAnimation: animation,
+                secondaryAnimation: secondaryAnimation,
+                child: AddTaskScreen(
+                  task: task,
+                ),
+              ),
           context: context,
-          child: AddTaskScreen(
-            key: ValueKey('update'),
-            task: task,
-          )),
+          pageBuilder: (context, a1, a2) => null),
       title: Text(
         task.title,
         style: TextStyle(

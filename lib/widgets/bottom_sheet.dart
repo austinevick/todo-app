@@ -4,6 +4,8 @@ import 'package:todo_app/models/task.dart';
 import 'package:todo_app/provider/task_provider.dart';
 import 'package:todo_app/screens/add_task_screen.dart';
 
+import 'custom_dialog.dart';
+
 class CustomBottomSheet extends StatelessWidget {
   final Task task;
   const CustomBottomSheet({Key key, this.task}) : super(key: key);
@@ -66,11 +68,22 @@ class CustomBottomSheet extends StatelessWidget {
             FlatButton(
                 onPressed: () {
                   Navigator.of(context).pop();
-                  openCustomDialog(
+                  showGeneralDialog(
+                      transitionDuration: Duration(milliseconds: 400),
+                      barrierDismissible: true,
+                      barrierLabel: '',
+                      barrierColor: Colors.black.withOpacity(0.5),
+                      transitionBuilder:
+                          (ctx, animation, secondaryAnimation, widget) =>
+                              CustomDialog(
+                                primaryAnimation: animation,
+                                secondaryAnimation: secondaryAnimation,
+                                child: AddTaskScreen(
+                                  task: task,
+                                ),
+                              ),
                       context: context,
-                      child: AddTaskScreen(
-                        task: task,
-                      ));
+                      pageBuilder: (context, a1, a2) => null);
                 },
                 child: Text(
                   'Edit Task',
