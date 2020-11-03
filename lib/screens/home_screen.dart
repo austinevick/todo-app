@@ -7,6 +7,7 @@ import 'package:todo_app/provider/task_provider.dart';
 import 'package:todo_app/screens/add_task_screen.dart';
 import 'package:todo_app/widgets/add_button.dart';
 import 'package:todo_app/widgets/bottom_sheet.dart';
+import 'package:todo_app/widgets/custom_dialog.dart';
 import 'package:todo_app/widgets/task_listtile.dart';
 
 enum TaskFilter {
@@ -41,14 +42,21 @@ class _HomeScreenState extends State<HomeScreen> {
         appBar: AppBar(
           actions: [
             AddButton(
-              icon: Icons.add,
-              onTap: () => openCustomDialog(
-                context: context,
-                child: AddTaskScreen(
-                  key: ValueKey('add'),
-                ),
-              ),
-            ),
+                icon: Icons.add,
+                onTap: () => showGeneralDialog(
+                    transitionDuration: Duration(milliseconds: 400),
+                    barrierColor: Colors.black.withOpacity(0.5),
+                    // pageBuilder: (context, animation1, animation2) => null),
+
+                    transitionBuilder:
+                        (ctx, animation, secondaryAnimation, widget) =>
+                            CustomDialog(
+                              primaryAnimation: animation,
+                              secondaryAnimation: secondaryAnimation,
+                              child: AddTaskScreen(),
+                            ),
+                    context: context,
+                    pageBuilder: (context, a1, a2) => null)),
             PopupMenuButton(onSelected: (TaskFilter selectedValue) {
               if (selectedValue == TaskFilter.ALLTASKS) {
                 setState(() => completedTasks = false);
