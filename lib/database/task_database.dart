@@ -54,6 +54,7 @@ class TaskDatabaseHelper {
         taskList.add(Task.fromMap(maps[i]));
       }
     }
+    taskList.sort((a, b) => b.date.compareTo(a.date));
     return taskList;
   }
 

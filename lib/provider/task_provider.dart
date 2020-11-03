@@ -5,6 +5,8 @@ import 'package:todo_app/models/task.dart';
 
 class TaskProvider extends ChangeNotifier {
   final TaskDatabaseHelper databaseHelper = new TaskDatabaseHelper();
+  GlobalKey scaffoldKey = new GlobalKey<ScaffoldState>();
+
   List<Task> taskList = [];
 
   fetchTask() {
@@ -13,6 +15,28 @@ class TaskProvider extends ChangeNotifier {
       taskList = task;
       notifyListeners();
     });
+  }
+
+  getTasksLength(bool value) {
+    return value ? showCompletedTask.length : taskList.length;
+  }
+
+  String title(bool selectValue) {
+    if (selectValue) {
+      return 'Completed Tasks';
+    } else {
+      return 'All Tasks';
+    }
+  }
+
+  List<Task> get showCompletedTask {
+    return taskList.where((task) => task.complete == 1).toList();
+  }
+
+  void restoreTaskByUndo(Task task) {
+    addTask(task);
+    fetchTask();
+    notifyListeners();
   }
 
   void addTask(Task task) {
@@ -26,10 +50,12 @@ class TaskProvider extends ChangeNotifier {
 
   void deleteTask(int id) {
     databaseHelper.deleteTask(id);
+    fetchTask();
   }
 
-  void completedTask(Task task, bool value) {
-    task.complete = value ? 1 : 0;
+  void completedTask(Task task) {
+    task.complete = task.complete == 1 ? 0 : 1;
+    updateTask(task);
     notifyListeners();
   }
 }

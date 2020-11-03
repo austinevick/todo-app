@@ -3,7 +3,7 @@ import 'category.dart';
 class Task {
   int id;
   String title;
-  List<TaskCategory> categories;
+  TaskCategory categories;
   String date;
   int complete;
   Task({
