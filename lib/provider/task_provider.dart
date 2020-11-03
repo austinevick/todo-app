@@ -27,7 +27,7 @@ class TaskProvider extends ChangeNotifier {
     return value ? showCompletedTask.length : taskList.length;
   }
 
-  String title(bool selectValue) {
+  String appBarTitle(bool selectValue) {
     if (selectValue) {
       return 'Completed Tasks';
     } else {
