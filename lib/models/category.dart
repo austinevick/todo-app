@@ -20,10 +20,3 @@ class TaskCategory {
     return {'id': this.id, 'title': this.title};
   }
 }
-
-List<TaskCategory> categories = [
-  TaskCategory(id: 1, title: 'Work'),
-  TaskCategory(id: 1, title: 'Event'),
-  TaskCategory(id: 1, title: 'Personal'),
-  TaskCategory(id: 1, title: 'Shopping'),
-];

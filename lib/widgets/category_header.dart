@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/models/category.dart';
 
 class CategoryHeader extends StatelessWidget {
-  final String categoryCount;
+  final List<TaskCategory> categoryCount;
   const CategoryHeader({
     Key key,
     this.categoryCount,
@@ -18,8 +19,14 @@ class CategoryHeader extends StatelessWidget {
               left: 20,
               child: Column(
                 children: [
-                  Text('10+'),
-                  Text('Categories'),
+                  Text(
+                    categoryCount.length.toString(),
+                    style: TextStyle(fontSize: 22),
+                  ),
+                  Text(
+                    'Categories',
+                    style: TextStyle(fontSize: 20),
+                  ),
                 ],
               ),
             ),

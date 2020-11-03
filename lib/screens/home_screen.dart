@@ -37,7 +37,6 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Consumer<TaskProvider>(
       builder: (context, tasks, child) => Scaffold(
-        key: tasks.scaffoldKey,
         backgroundColor: Colors.black,
         appBar: AppBar(
           actions: [

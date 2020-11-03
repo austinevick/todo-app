@@ -1,11 +1,17 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app/database/task_database.dart';
+import 'package:todo_app/models/category.dart';
 import 'package:todo_app/models/task.dart';
 
 class TaskProvider extends ChangeNotifier {
   final TaskDatabaseHelper databaseHelper = new TaskDatabaseHelper();
-  GlobalKey scaffoldKey = new GlobalKey<ScaffoldState>();
+  List<TaskCategory> categories = [
+    TaskCategory(id: 1, title: 'Work'),
+    TaskCategory(id: 2, title: 'Event'),
+    TaskCategory(id: 3, title: 'Personal'),
+    TaskCategory(id: 4, title: 'Shopping'),
+  ];
 
   List<Task> taskList = [];
 
