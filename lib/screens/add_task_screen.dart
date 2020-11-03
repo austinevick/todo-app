@@ -119,49 +119,28 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                 SizedBox(
                   height: 50,
                 ),
-                ButtonBar(
-                  buttonHeight: 45,
-                  buttonMinWidth: 115,
-                  alignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Container(
-                        color: Colors.green,
-                        width: 100,
-                        child: FlatButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                              tasks.deleteTask(widget.task.id);
-                              tasks.fetchTask();
-                            },
-                            child: Text(
-                              'Delete',
-                              style: TextStyle(fontSize: 20),
-                            ))),
-                    Container(
-                        color: Colors.green,
-                        width: 100,
-                        child: FlatButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                              Task task = new Task(
-                                  title: titleController.text,
-                                  date: currentTime);
-                              if (widget.task == null) {
-                                task.complete = 0;
-                                tasks.addTask(task);
-                                print(task);
-                              } else {
-                                task.id = widget.task.id;
-                                tasks.updateTask(task);
-                              }
-                              tasks.fetchTask();
-                            },
-                            child: Text(
-                              'Done',
-                              style: TextStyle(fontSize: 20),
-                            )))
-                  ],
-                ),
+                Container(
+                    color: Colors.green,
+                    width: 100,
+                    child: FlatButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          Task task = new Task(
+                              title: titleController.text, date: currentTime);
+                          if (widget.task == null) {
+                            task.complete = 0;
+                            tasks.addTask(task);
+                            print(task);
+                          } else {
+                            task.id = widget.task.id;
+                            tasks.updateTask(task);
+                          }
+                          tasks.fetchTask();
+                        },
+                        child: Text(
+                          'Done',
+                          style: TextStyle(fontSize: 20),
+                        )))
               ],
             ),
           ),
