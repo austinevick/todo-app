@@ -67,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ];
             })
           ],
-          title: Text(tasks.title(completedTasks)),
+          title: Text(tasks.appBarTitle(completedTasks)),
         ),
         body: Column(
           children: [
