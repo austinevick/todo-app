@@ -17,7 +17,7 @@ class CustomDialog extends StatelessWidget {
     return Transform.scale(
         scale: primaryAnimation.value,
         child: Opacity(
-          opacity: secondaryAnimation.value,
+          opacity: primaryAnimation.value,
           child: child,
         ));
   }
