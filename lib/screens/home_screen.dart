@@ -7,6 +7,7 @@ import 'package:todo_app/provider/task_provider.dart';
 import 'package:todo_app/screens/add_task_screen.dart';
 import 'package:todo_app/widgets/add_button.dart';
 import 'package:todo_app/widgets/bottom_sheet.dart';
+import 'package:todo_app/widgets/confirmation_dialog.dart';
 import 'package:todo_app/widgets/custom_dialog.dart';
 import 'package:todo_app/widgets/task_listtile.dart';
 
@@ -111,6 +112,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             color: randomColor.randomColor(
                                 colorBrightness: ColorBrightness.dark),
                             child: Dismissible(
+                                confirmDismiss: (direction) => showDialog(
+                                    context: context,
+                                    builder: (context) => ConfirmDialog()),
                                 key: ValueKey(task.id),
                                 background: Center(
                                   child: Text(
