@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/screens/category_screen.dart';
 import 'package:todo_app/screens/home_screen.dart';
+import 'package:todo_app/screens/note_screen.dart';
 
 class BottomNavBarScreen extends StatefulWidget {
   @override
@@ -8,7 +9,7 @@ class BottomNavBarScreen extends StatefulWidget {
 }
 
 class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
-  List<Widget> screens = [HomeScreen(), CategoryScreen()];
+  List<Widget> screens = [HomeScreen(), CategoryScreen(), NoteScreen()];
   int selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
