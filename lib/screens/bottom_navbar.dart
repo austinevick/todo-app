@@ -26,6 +26,10 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
             icon: Container(),
             label: 'Category',
           ),
+          BottomNavigationBarItem(
+            icon: Container(),
+            label: 'Note',
+          ),
         ],
       ),
       body: screens[selectedIndex],
