@@ -52,8 +52,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     transitionBuilder:
                         (ctx, animation, secondaryAnimation, widget) =>
                             CustomDialog(
-                              primaryAnimation: animation,
                               secondaryAnimation: secondaryAnimation,
+                              primaryAnimation: animation,
                               child: AddTaskScreen(),
                             ),
                     context: context,

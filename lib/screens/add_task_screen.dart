@@ -16,7 +16,7 @@ class AddTaskScreen extends StatefulWidget {
 
 class _AddTaskScreenState extends State<AddTaskScreen> {
   final titleController = new TextEditingController();
-  var currentTime = DateTime.now();
+  var currentTime = DateFormat('HH:mm').format(DateTime.now());
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
@@ -26,43 +26,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
       titleController.text = widget.task.title;
       currentTime = widget.task.date;
     }
-    init();
     super.initState();
-  }
-
-  init() {
-    var initializationSettingsAndroid =
-        AndroidInitializationSettings('intropage');
-    var initializationSettingsIOs = IOSInitializationSettings();
-    var initSetttings = InitializationSettings(
-        initializationSettingsAndroid, initializationSettingsIOs);
-
-    flutterLocalNotificationsPlugin.initialize(initSetttings,
-        onSelectNotification: onSelectNotification);
-  }
-
-  onSelectNotification(String payload) {
-    Navigator.of(context).push(MaterialPageRoute(builder: (_) {
-      return HomeScreen();
-    }));
-  }
-
-  Future<void> scheduleNotification() async {
-    var scheduledNotificationDateTime = currentTime;
-    var androidPlatformChannelSpecifics = AndroidNotificationDetails(
-      'channel id',
-      'channel name',
-      'channel description',
-      icon: 'intropage',
-      importance: Importance.Max,
-      priority: Priority.High,
-      largeIcon: DrawableResourceAndroidBitmap('intropage'),
-    );
-    var iOSPlatformChannelSpecifics = IOSNotificationDetails();
-    var platformChannelSpecifics = NotificationDetails(
-        androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
-    await flutterLocalNotificationsPlugin.schedule(0, '', 'scheduled body',
-        scheduledNotificationDateTime, platformChannelSpecifics);
   }
 
   @override
@@ -124,7 +88,8 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                               lastDate: DateTime(2030),
                               initialDate: DateTime.now());
                           if (date != null) {
-                            setState(() => currentTime = date);
+                            setState(
+                                () => currentTime = date.toIso8601String());
                           }
                         },
                         child: Icon(
@@ -132,7 +97,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                           size: 30,
                         )),
                     Text(
-                      '$currentTime',
+                      '${TimeOfDay.now().format(context)}',
                       style: TextStyle(fontSize: 20),
                     ),
                   ],

@@ -7,9 +7,9 @@ class CustomDialog extends StatelessWidget {
 
   const CustomDialog({
     Key key,
-    this.primaryAnimation,
-    this.secondaryAnimation,
-    this.child,
+    @required this.primaryAnimation,
+    @required this.secondaryAnimation,
+    @required this.child,
   }) : super(key: key);
 
   @override

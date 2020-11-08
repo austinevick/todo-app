@@ -6,7 +6,7 @@ class Task {
   int id;
   String title;
   TaskCategory categories;
-  DateTime date;
+  String date;
   int complete;
   Task({
     this.id,
@@ -30,7 +30,7 @@ class Task {
       'id': this.id,
       'title': this.title,
       'categories': this.categories,
-      'date': DateFormat('HH:mm').format(this.date),
+      'date': this.date,
       'completed': this.complete
     };
   }
