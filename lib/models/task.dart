@@ -1,10 +1,12 @@
+import 'package:intl/intl.dart';
+
 import 'category.dart';
 
 class Task {
   int id;
   String title;
   TaskCategory categories;
-  String date;
+  DateTime date;
   int complete;
   Task({
     this.id,
@@ -28,7 +30,7 @@ class Task {
       'id': this.id,
       'title': this.title,
       'categories': this.categories,
-      'date': this.date,
+      'date': DateFormat('HH:mm').format(this.date),
       'completed': this.complete
     };
   }

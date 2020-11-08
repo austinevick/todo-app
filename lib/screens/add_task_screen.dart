@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_app/models/category.dart';
 import 'package:todo_app/models/task.dart';
 import 'package:todo_app/provider/task_provider.dart';
+import 'package:todo_app/screens/home_screen.dart';
 
 class AddTaskScreen extends StatefulWidget {
   final Task task;
@@ -15,10 +16,9 @@ class AddTaskScreen extends StatefulWidget {
 
 class _AddTaskScreenState extends State<AddTaskScreen> {
   final titleController = new TextEditingController();
-  var currentTime = DateFormat('HH:mm').format(DateTime.now());
-  var items = ['one', 'two', 'three'];
-
-  String initialValue = 'one';
+  var currentTime = DateTime.now();
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
 
   @override
   void initState() {
@@ -26,7 +26,43 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
       titleController.text = widget.task.title;
       currentTime = widget.task.date;
     }
+    init();
     super.initState();
+  }
+
+  init() {
+    var initializationSettingsAndroid =
+        AndroidInitializationSettings('intropage');
+    var initializationSettingsIOs = IOSInitializationSettings();
+    var initSetttings = InitializationSettings(
+        initializationSettingsAndroid, initializationSettingsIOs);
+
+    flutterLocalNotificationsPlugin.initialize(initSetttings,
+        onSelectNotification: onSelectNotification);
+  }
+
+  onSelectNotification(String payload) {
+    Navigator.of(context).push(MaterialPageRoute(builder: (_) {
+      return HomeScreen();
+    }));
+  }
+
+  Future<void> scheduleNotification() async {
+    var scheduledNotificationDateTime = currentTime;
+    var androidPlatformChannelSpecifics = AndroidNotificationDetails(
+      'channel id',
+      'channel name',
+      'channel description',
+      icon: 'intropage',
+      importance: Importance.Max,
+      priority: Priority.High,
+      largeIcon: DrawableResourceAndroidBitmap('intropage'),
+    );
+    var iOSPlatformChannelSpecifics = IOSNotificationDetails();
+    var platformChannelSpecifics = NotificationDetails(
+        androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+    await flutterLocalNotificationsPlugin.schedule(0, '', 'scheduled body',
+        scheduledNotificationDateTime, platformChannelSpecifics);
   }
 
   @override
@@ -79,16 +115,16 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                   height: 10,
                 ),
                 Row(
-                  // mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     FlatButton(
                         onPressed: () async {
-                          var time = await showTimePicker(
-                            context: context,
-                            initialTime: TimeOfDay.now(),
-                          );
-                          if (time != null) {
-                            setState(() => currentTime = time.format(context));
+                          var date = await showDatePicker(
+                              context: context,
+                              firstDate: DateTime(1990),
+                              lastDate: DateTime(2030),
+                              initialDate: DateTime.now());
+                          if (date != null) {
+                            setState(() => currentTime = date);
                           }
                         },
                         child: Icon(
@@ -100,21 +136,6 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                       style: TextStyle(fontSize: 20),
                     ),
                   ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 35),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: DropdownButton(
-                        value: initialValue,
-                        items: items
-                            .map((e) =>
-                                DropdownMenuItem(value: e, child: Text(e)))
-                            .toList(),
-                        onChanged: (value) {
-                          setState(() => initialValue = value);
-                        }),
-                  ),
                 ),
                 SizedBox(
                   height: 50,

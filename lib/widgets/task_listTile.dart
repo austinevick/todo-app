@@ -61,7 +61,7 @@ class TaskListTile extends StatelessWidget {
               color: Colors.lightBlueAccent,
             )),
         child: Text(
-          task.date,
+          task.date.toString(),
           style: TextStyle(
             fontSize: 11,
             color: task.complete == 0 ? Colors.white : Colors.grey,
