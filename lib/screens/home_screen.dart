@@ -23,7 +23,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final CalendarController calendarController = CalendarController();
-  final RandomColor randomColor = RandomColor();
   bool completedTasks = false;
 
   @override
@@ -109,8 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         itemBuilder: (context, index) {
                           final task = tasks.taskList[index];
                           return Card(
-                            color: randomColor.randomColor(
-                                colorBrightness: ColorBrightness.dark),
+                            color: Color(0xff301d8f),
                             child: Dismissible(
                                 confirmDismiss: (direction) => showDialog(
                                     context: context,

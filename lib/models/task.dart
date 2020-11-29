@@ -1,5 +1,3 @@
-import 'package:intl/intl.dart';
-
 import 'category.dart';
 
 class Task {

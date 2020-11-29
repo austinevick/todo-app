@@ -15,6 +15,8 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.grey,
         currentIndex: selectedIndex,
         onTap: (value) => setState(() => selectedIndex = value),
         items: [
