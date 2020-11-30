@@ -12,16 +12,14 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => NoteProvider()),
-        ChangeNotifierProvider(
-          create: (context) => TaskProvider(),
-          child: MaterialApp(
-            theme: ThemeData.dark(),
-            debugShowCheckedModeBanner: false,
-            title: 'todo app',
-            home: BottomNavBarScreen(),
-          ),
-        ),
+        ChangeNotifierProvider(create: (context) => TaskProvider())
       ],
+      child: MaterialApp(
+        theme: ThemeData.dark(),
+        debugShowCheckedModeBanner: false,
+        title: 'todo app',
+        home: BottomNavBarScreen(),
+      ),
     );
   }
 }
