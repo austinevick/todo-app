@@ -10,18 +10,60 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: AnimatedSwitcher(
-          duration: Duration(seconds: 2),
-          child: contentController.text.isEmpty
-              ? Container()
-              : FloatingActionButton.extended(
-                  onPressed: () {},
-                  backgroundColor: Color(0xff301d8f),
-                  label: Text(
-                    'Save Note',
-                    style: TextStyle(color: Colors.white),
-                  ))),
+      appBar: AppBar(
+        actions: [
+          AnimatedSwitcher(
+              duration: Duration(seconds: 2),
+              child: contentController.text.isEmpty
+                  ? Container()
+                  : FlatButton(
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (ctx) => Dialog(
+                                  child: Container(
+                                    height: 150,
+                                    child: Column(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text(
+                                            'Enter title to save',
+                                            style: TextStyle(fontSize: 18),
+                                          ),
+                                        ),
+                                        TextField(
+                                          decoration: InputDecoration(
+                                              hintText: 'Title'),
+                                        ),
+                                        Spacer(),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
+                                            children: [
+                                              GestureDetector(
+                                                child: Container(
+                                                  child: Text('CANCEL'),
+                                                ),
+                                              ),
+                                              GestureDetector(
+                                                child: Container(
+                                                  child: Text('SAVE'),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ));
+                      },
+                      child: Text('Save Note', style: TextStyle(fontSize: 18))))
+        ],
+      ),
       body: Container(
         child: Column(
           children: [
