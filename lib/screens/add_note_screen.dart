@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_app/models/note.dart';
+import 'package:todo_app/provider/note_provider.dart';
 
 class AddNoteScreen extends StatefulWidget {
   @override
@@ -7,77 +11,95 @@ class AddNoteScreen extends StatefulWidget {
 
 class _AddNoteScreenState extends State<AddNoteScreen> {
   final contentController = new TextEditingController();
+  final titleController = new TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        actions: [
-          FlatButton(
-              onPressed: contentController.text.isEmpty
-                  ? null
-                  : () {
-                      showDialog(
-                          context: context,
-                          builder: (ctx) => Dialog(
-                                child: Container(
-                                  height: 150,
-                                  child: Column(
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(
-                                          'Enter title to save',
-                                          style: TextStyle(fontSize: 18),
+    return Consumer<NoteProvider>(
+      builder: (context, provider, child) => Scaffold(
+        appBar: AppBar(
+          actions: [
+            FlatButton(
+                onPressed: contentController.text.isEmpty
+                    ? null
+                    : () {
+                        showDialog(
+                            context: context,
+                            builder: (ctx) => Dialog(
+                                  child: Container(
+                                    height: 150,
+                                    child: Column(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text(
+                                            'Enter title to save',
+                                            style: TextStyle(fontSize: 18),
+                                          ),
                                         ),
-                                      ),
-                                      TextField(
-                                        decoration:
-                                            InputDecoration(hintText: 'Title'),
-                                      ),
-                                      Spacer(),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: [
-                                            GestureDetector(
-                                              child: Container(
-                                                child: Text('CANCEL'),
-                                              ),
-                                            ),
-                                            GestureDetector(
-                                              child: Container(
-                                                child: Text('SAVE'),
-                                              ),
-                                            )
-                                          ],
+                                        TextField(
+                                          controller: titleController,
+                                          decoration: InputDecoration(
+                                              hintText: 'Title'),
                                         ),
-                                      )
-                                    ],
+                                        Spacer(),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
+                                            children: [
+                                              GestureDetector(
+                                                onTap: () =>
+                                                    Navigator.of(context).pop(),
+                                                child: Container(
+                                                  child: Text('CANCEL'),
+                                                ),
+                                              ),
+                                              GestureDetector(
+                                                onTap: () {
+                                                  Note note = new Note(
+                                                      content: contentController
+                                                          .text,
+                                                      date: DateFormat.yMEd()
+                                                          .format(
+                                                              DateTime.now()),
+                                                      title:
+                                                          titleController.text);
+                                                  provider.addNote(note);
+                                                },
+                                                child: Container(
+                                                  child: Text('SAVE'),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        )
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ));
-                    },
-              child: Text('Save Note', style: TextStyle(fontSize: 18)))
-        ],
-      ),
-      body: Container(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextFormField(
-                textCapitalization: TextCapitalization.sentences,
-                maxLines: null,
-                controller: contentController,
-                decoration: InputDecoration(
-                    enabledBorder: InputBorder.none,
-                    focusedBorder: InputBorder.none,
-                    hintText: 'Enter new note'),
-              ),
-            ),
+                                ));
+                      },
+                child: Text('Save Note', style: TextStyle(fontSize: 18)))
           ],
+        ),
+        body: Container(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                  textCapitalization: TextCapitalization.sentences,
+                  maxLines: null,
+                  controller: contentController,
+                  decoration: InputDecoration(
+                      enabledBorder: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                      hintText: 'Enter new note'),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
