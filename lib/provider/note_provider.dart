@@ -16,5 +16,6 @@ class NoteProvider extends ChangeNotifier {
 
   void addNote(Note note) {
     noteDatabaseHelper.saveNote(note);
+    notifyListeners();
   }
 }

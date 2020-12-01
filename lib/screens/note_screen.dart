@@ -14,6 +14,10 @@ class NoteScreen extends StatefulWidget {
 class _NoteScreenState extends State<NoteScreen> {
   @override
   void initState() {
+    Provider.of<NoteProvider>(
+      context,
+      listen: false,
+    ).fetchListOfNote();
     super.initState();
   }
 

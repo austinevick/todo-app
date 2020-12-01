@@ -9,6 +9,7 @@ class NoteDatabaseHelper {
   static const String ID = 'id';
   static const String TITLE = 'title';
   static const String CONTENT = 'content';
+  static const String IMAGE = 'image';
   static const String TABLE = 'note';
   static const String DATE = 'date';
   static const String DB_NAME = 'note.db';
@@ -29,7 +30,7 @@ class NoteDatabaseHelper {
 
   createDatabase(Database db, int version) async {
     await db.execute(
-        'CREATE TABLE $TABLE ($ID INTEGER PRIMARY KEY, $TITLE TEXT ,$DATE TEXT, $CONTENT TEXT)');
+        'CREATE TABLE $TABLE ($ID INTEGER PRIMARY KEY, $TITLE TEXT ,$DATE TEXT,$IMAGE TEXT, $CONTENT TEXT)');
   }
 
   Future<Note> saveNote(Note note) async {
@@ -42,7 +43,7 @@ class NoteDatabaseHelper {
     var dbClient = await db;
     List<Map> map = await dbClient.query(
       TABLE,
-      columns: [ID, TITLE, CONTENT, DATE],
+      columns: [ID, TITLE, CONTENT, DATE, IMAGE],
     );
     List<Note> noteList = [];
     if (map != null) {

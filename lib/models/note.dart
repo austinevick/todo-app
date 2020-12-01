@@ -2,14 +2,16 @@ class Note {
   int id;
   final String title;
   final String content;
+  final String image;
   final String date;
 
-  Note({this.content, this.date, this.id, this.title});
+  Note({this.content, this.image, this.date, this.id, this.title});
 
   factory Note.fromMap(Map<String, dynamic> map) {
     return Note(
       id: map['id'],
       title: map['title'],
+      image: map['image'],
       content: map['content'],
       date: map['date'],
     );
@@ -19,6 +21,7 @@ class Note {
     return {
       'id': this.id,
       'title': this.title,
+      'image': this.image,
       'content': this.content,
       'date': this.date,
     };

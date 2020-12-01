@@ -23,6 +23,8 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
                 onPressed: contentController.text.isEmpty
                     ? null
                     : () {
+                        //Navigator.of(context).pop();
+
                         showDialog(
                             context: context,
                             builder: (ctx) => Dialog(
@@ -49,29 +51,27 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceAround,
                                             children: [
-                                              GestureDetector(
-                                                onTap: () =>
-                                                    Navigator.of(context).pop(),
-                                                child: Container(
-                                                  child: Text('CANCEL'),
-                                                ),
-                                              ),
-                                              GestureDetector(
-                                                onTap: () {
-                                                  Note note = new Note(
-                                                      content: contentController
-                                                          .text,
-                                                      date: DateFormat.yMEd()
-                                                          .format(
-                                                              DateTime.now()),
-                                                      title:
-                                                          titleController.text);
-                                                  provider.addNote(note);
-                                                },
-                                                child: Container(
-                                                  child: Text('SAVE'),
-                                                ),
-                                              )
+                                              FlatButton(
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  child: Text('CANCEL')),
+                                              FlatButton(
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                    Note note = new Note(
+                                                        content:
+                                                            contentController
+                                                                .text,
+                                                        date: DateFormat.yMEd()
+                                                            .format(
+                                                                DateTime.now()),
+                                                        title: titleController
+                                                            .text);
+                                                    provider.addNote(note);
+                                                    provider.fetchListOfNote();
+                                                  },
+                                                  child: Text('SAVE'))
                                             ],
                                           ),
                                         )
