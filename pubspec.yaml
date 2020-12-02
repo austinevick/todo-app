@@ -32,12 +32,12 @@ dependencies:
   provider:
   share:   
   dynamic_theme:
-  percent_indicator:
   flutter_local_notifications:
   shared_preferences:
   table_calendar: 
   random_color: 
   modal_bottom_sheet: 
+  image_picker: ^0.6.7+14
    
 
   
