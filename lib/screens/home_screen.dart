@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:random_color/random_color.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:todo_app/provider/task_provider.dart';
 import 'package:todo_app/screens/add_task_screen.dart';
 import 'package:todo_app/widgets/add_button.dart';
-import 'package:todo_app/widgets/bottom_sheet.dart';
 import 'package:todo_app/widgets/confirmation_dialog.dart';
 import 'package:todo_app/widgets/custom_dialog.dart';
 import 'package:todo_app/widgets/task_listtile.dart';

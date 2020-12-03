@@ -38,6 +38,7 @@ dependencies:
   random_color: 
   modal_bottom_sheet: 
   image_picker: ^0.6.7+14
+  flutter_slidable: ^0.5.7
    
 
   

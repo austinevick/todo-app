@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
@@ -40,24 +42,45 @@ class _NoteScreenState extends State<NoteScreen> {
           crossAxisCount: 2,
           itemBuilder: (context, index) {
             var note = noteList.noteList[index];
-            return Padding(
-              padding: const EdgeInsets.all(4.0),
-              child: Container(
-                color: Color(0xff301d8f),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: [
-                      Text(
-                        note.title,
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        note.content,
-                        style: TextStyle(fontSize: 15),
-                      ),
-                    ],
+            return Slidable(
+              actionPane: SlidableDrawerActionPane(),
+              actions: [
+                IconSlideAction(
+                  icon: Icons.edit,
+                  onTap: () => null,
+                  caption: 'Edit',
+                ),
+                IconSlideAction(
+                  icon: Icons.delete,
+                  onTap: () => null,
+                  caption: 'Delete',
+                )
+              ],
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  color: Color(0xff301d8f),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        Text(
+                          note.title,
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          note.content,
+                          style: TextStyle(fontSize: 15),
+                        ),
+                        Image.memory(
+                          base64Decode(note.image),
+                          height: 100,
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
