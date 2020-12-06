@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -19,9 +20,13 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
 
   final picker = ImagePicker();
   File imageFile;
+  Uint8List bytes;
   Future getImage() async {
     PickedFile pickedFile = await picker.getImage(source: ImageSource.gallery);
-    setState(() => imageFile = File(pickedFile.path));
+    setState(() {
+      imageFile = File(pickedFile.path);
+      bytes = imageFile.readAsBytesSync();
+    });
   }
 
   @override
@@ -31,7 +36,6 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
         floatingActionButton: FloatingActionButton(
             backgroundColor: Color(0xff301d8f),
             onPressed: () {
-              final bytes = imageFile.readAsBytesSync();
               Note note = new Note(
                 date: DateFormat.yMMMd().add_Hm().format(DateTime.now()),
                 image: base64Encode(bytes),

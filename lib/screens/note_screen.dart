@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:todo_app/provider/note_provider.dart';
 import 'package:todo_app/screens/add_note_screen.dart';
 import 'package:todo_app/widgets/add_button.dart';
+import 'package:todo_app/widgets/note_list.dart';
 
 class NoteScreen extends StatefulWidget {
   @override
@@ -27,70 +28,20 @@ class _NoteScreenState extends State<NoteScreen> {
   Widget build(BuildContext context) {
     return Consumer<NoteProvider>(
       builder: (context, noteList, child) => Scaffold(
-        backgroundColor: Colors.black,
-        appBar: AppBar(
-          title: Text('All Note'),
-          actions: [
-            AddButton(
-                icon: Icons.add,
-                onTap: () => showBarModalBottomSheet(
-                    context: context,
-                    builder: (ctx, isScrolled) => AddNoteScreen()))
-          ],
-        ),
-        body: StaggeredGridView.countBuilder(
-          crossAxisCount: 2,
-          itemBuilder: (context, index) {
-            var note = noteList.noteList[index];
-            return Slidable(
-              actionPane: SlidableDrawerActionPane(),
-              actions: [
-                IconSlideAction(
-                  icon: Icons.edit,
-                  onTap: () => null,
-                  caption: 'Edit',
-                ),
-                IconSlideAction(
-                  icon: Icons.delete,
-                  onTap: () => null,
-                  caption: 'Delete',
-                )
-              ],
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  color: Color(0xff301d8f),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        Text(
-                          note.title,
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          note.content,
-                          style: TextStyle(fontSize: 15),
-                        ),
-                        Image.memory(
-                          base64Decode(note.image),
-                          height: 100,
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            );
-          },
-          itemCount: noteList.noteList.length,
-          staggeredTileBuilder: (index) => StaggeredTile.count(
-              (index % 5 == 0) ? 3 : 1, (index % 5 == 0) ? 1 : 1),
-        ),
-      ),
+          backgroundColor: Colors.white,
+          appBar: AppBar(
+            title: Text('All Note'),
+            actions: [
+              AddButton(
+                  icon: Icons.add,
+                  onTap: () => showBarModalBottomSheet(
+                      context: context,
+                      builder: (ctx, isScrolled) => AddNoteScreen()))
+            ],
+          ),
+          body: NoteList(
+            noteList: noteList.noteList,
+          )),
     );
   }
 }

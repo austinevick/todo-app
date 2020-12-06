@@ -21,7 +21,7 @@ class Note {
     return {
       'id': this.id,
       'title': this.title,
-      'image': this.image,
+      'image': this.image ?? '',
       'content': this.content,
       'date': this.date,
     };
