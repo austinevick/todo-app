@@ -18,4 +18,16 @@ class NoteProvider extends ChangeNotifier {
     noteDatabaseHelper.saveNote(note);
     notifyListeners();
   }
+
+  void updateNote(Note note) {
+    noteDatabaseHelper.updateNote(note);
+    fetchListOfNote();
+    notifyListeners();
+  }
+
+  void deleteNote(int id) {
+    noteDatabaseHelper.deleteNote(id);
+    fetchListOfNote();
+    notifyListeners();
+  }
 }

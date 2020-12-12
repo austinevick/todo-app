@@ -10,6 +10,9 @@ import 'package:todo_app/models/note.dart';
 import 'package:todo_app/provider/note_provider.dart';
 
 class AddNoteScreen extends StatefulWidget {
+  final Note note;
+
+  const AddNoteScreen({Key key, this.note}) : super(key: key);
   @override
   _AddNoteScreenState createState() => _AddNoteScreenState();
 }
@@ -17,6 +20,7 @@ class AddNoteScreen extends StatefulWidget {
 class _AddNoteScreenState extends State<AddNoteScreen> {
   final contentController = new TextEditingController();
   final titleController = new TextEditingController();
+  var date = DateFormat.yMMMd().add_Hm().format(DateTime.now());
 
   final picker = ImagePicker();
   File imageFile;
@@ -30,6 +34,16 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
   }
 
   @override
+  void initState() {
+    if (widget.note != null) {
+      titleController.text = widget.note.title;
+      contentController.text = widget.note.content;
+      date = widget.note.date;
+    }
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Consumer<NoteProvider>(
       builder: (context, provider, child) => Scaffold(
@@ -37,13 +51,18 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
             backgroundColor: Color(0xff301d8f),
             onPressed: () {
               Note note = new Note(
-                date: DateFormat.yMMMd().add_Hm().format(DateTime.now()),
-                image: base64Encode(bytes),
-                title: titleController.text,
-                content: contentController.text,
-              );
-              provider.addNote(note);
+                  date: date,
+                  //image: base64Encode(bytes),
+                  title: titleController.text,
+                  content: contentController.text);
+              if (widget.note == null) {
+                provider.addNote(note);
+              } else {
+                note.id = widget.note.id;
+                provider.updateNote(note);
+              }
               provider.fetchListOfNote();
+              Navigator.of(context).pop();
               print(note);
             },
             child: Icon(
@@ -52,14 +71,22 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
             )),
         appBar: AppBar(
           actions: [
-            FlatButton(
-                onPressed: () {
-                  getImage();
-                },
-                child: Text('Add image',
-                    style: TextStyle(
-                      fontSize: 18,
-                    )))
+            widget.note != null
+                ? IconButton(
+                    icon: Icon(Icons.delete),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      provider.deleteNote(widget.note.id);
+                      provider.fetchListOfNote();
+                    })
+                : FlatButton(
+                    onPressed: () {
+                      getImage();
+                    },
+                    child: Text('Add image',
+                        style: TextStyle(
+                          fontSize: 18,
+                        )))
           ],
         ),
         body: Column(
