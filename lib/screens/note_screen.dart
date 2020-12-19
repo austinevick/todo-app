@@ -28,15 +28,13 @@ class _NoteScreenState extends State<NoteScreen> {
   Widget build(BuildContext context) {
     return Consumer<NoteProvider>(
       builder: (context, noteList, child) => Scaffold(
-          backgroundColor: Colors.white,
           appBar: AppBar(
             title: Text('All Note'),
             actions: [
               AddButton(
                   icon: Icons.add,
                   onTap: () => showBarModalBottomSheet(
-                      context: context,
-                      builder: (ctx, isScrolled) => AddNoteScreen()))
+                      context: context, builder: (ctx) => AddNoteScreen()))
             ],
           ),
           body: NoteList(

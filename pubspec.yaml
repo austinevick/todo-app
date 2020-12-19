@@ -28,11 +28,9 @@ dependencies:
   path_provider:
   fluttertoast:
   flutter_staggered_grid_view:
-  clipboard_manager: 
   provider:
   share:   
   dynamic_theme:
-  flutter_local_notifications:
   shared_preferences:
   table_calendar: 
   random_color: 

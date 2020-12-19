@@ -79,14 +79,7 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
                       provider.deleteNote(widget.note.id);
                       provider.fetchListOfNote();
                     })
-                : FlatButton(
-                    onPressed: () {
-                      getImage();
-                    },
-                    child: Text('Add image',
-                        style: TextStyle(
-                          fontSize: 18,
-                        )))
+                : Container()
           ],
         ),
         body: Column(

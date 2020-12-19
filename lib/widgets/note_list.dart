@@ -19,7 +19,7 @@ class NoteList extends StatelessWidget {
         return GestureDetector(
           onTap: () => showBarModalBottomSheet(
               context: context,
-              builder: (ctx, isScrolled) => AddNoteScreen(
+              builder: (ctx) => AddNoteScreen(
                     note: note,
                   )),
           child: Padding(
