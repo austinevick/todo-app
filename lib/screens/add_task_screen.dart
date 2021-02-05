@@ -3,7 +3,6 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/models/task.dart';
 import 'package:todo_app/provider/task_provider.dart';
-import 'package:todo_app/screens/home_screen.dart';
 
 class AddTaskScreen extends StatefulWidget {
   final Task task;
@@ -15,10 +14,11 @@ class AddTaskScreen extends StatefulWidget {
 
 class _AddTaskScreenState extends State<AddTaskScreen> {
   final titleController = new TextEditingController();
-  var currentTime = DateFormat('HH:mm').format(DateTime.now());
+  var currentTime;
 
   @override
   void initState() {
+    currentTime = TimeOfDay.now().format(context);
     if (widget.task != null) {
       titleController.text = widget.task.title;
       currentTime = widget.task.date;
@@ -26,106 +26,83 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
     super.initState();
   }
 
+  submitTask(TaskProvider tasks) {
+    Navigator.of(context).pop();
+    Task task = new Task(title: titleController.text, date: currentTime);
+    if (widget.task == null) {
+      task.complete = 0;
+      tasks.addTask(task);
+      print(task);
+    } else {
+      task.id = widget.task.id;
+      tasks.updateTask(task);
+    }
+    tasks.fetchTask();
+  }
+
+  setTime() async {
+    var time = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    );
+    if (time != null) {
+      setState(() => currentTime = time);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-      shape: OutlineInputBorder(
-        borderSide: BorderSide.none,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      elevation: 0,
-      child: Consumer<TaskProvider>(
-        builder: (context, tasks, child) => Container(
-          height: MediaQuery.of(context).size.height / 2,
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    'Add task',
-                    style: TextStyle(fontSize: 22),
-                  ),
+    return Consumer<TaskProvider>(
+      builder: (context, tasks, child) => Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text(
+            'Add task',
+          ),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              TextFormField(
+                onChanged: (val) => setState(() {}),
+                cursorWidth: 1,
+                textCapitalization: TextCapitalization.sentences,
+                style: TextStyle(
+                  fontSize: 18,
                 ),
-                Divider(
-                  thickness: 2,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 8, left: 8),
-                  child: TextFormField(
-                    validator: (value) =>
-                        value.isEmpty ? 'Please enter a title' : null,
-                    cursorWidth: 1.5,
-                    textCapitalization: TextCapitalization.sentences,
-                    textInputAction: TextInputAction.next,
-                    style: TextStyle(
-                      fontSize: 18,
-                    ),
-                    controller: titleController,
-                    decoration: InputDecoration(
-                        focusedBorder: InputBorder.none,
-                        enabledBorder: InputBorder.none,
-                        hintText: 'Title'),
-                  ),
-                ),
-                Divider(
-                  thickness: 1.5,
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  children: [
-                    FlatButton(
-                        onPressed: () async {
-                          var date = await showDatePicker(
-                              context: context,
-                              firstDate: DateTime(1990),
-                              lastDate: DateTime(2030),
-                              initialDate: DateTime.now());
-                          if (date != null) {
-                            setState(
-                                () => currentTime = date.toIso8601String());
-                          }
-                        },
-                        child: Icon(
-                          Icons.timer,
-                          size: 30,
-                        )),
-                    Text(
-                      '${TimeOfDay.now().format(context)}',
-                      style: TextStyle(fontSize: 20),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 50,
-                ),
-                Container(
-                    color: Colors.green,
-                    width: 100,
-                    child: FlatButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                          Task task = new Task(
-                              title: titleController.text, date: currentTime);
-                          if (widget.task == null) {
-                            task.complete = 0;
-                            tasks.addTask(task);
-                            print(task);
-                          } else {
-                            task.id = widget.task.id;
-                            tasks.updateTask(task);
-                          }
-                          tasks.fetchTask();
-                        },
-                        child: Text(
-                          'Done',
-                          style: TextStyle(fontSize: 20),
-                        )))
-              ],
-            ),
+                controller: titleController,
+                decoration: InputDecoration(
+                    focusedBorder: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    hintText: 'Title'),
+              ),
+              Divider(
+                thickness: 1.5,
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              ListTile(
+                onTap: () => setTime(),
+                title: Text('$currentTime', style: TextStyle(fontSize: 20)),
+                leading: Icon(Icons.alarm),
+              ),
+              Spacer(),
+              titleController.text.isEmpty
+                  ? Container()
+                  : Container(
+                      height: 55,
+                      color: Colors.green,
+                      width: double.infinity,
+                      child: FlatButton(
+                          onPressed: () => submitTask(tasks),
+                          child: Text(
+                            'SUBMIT',
+                            style: TextStyle(fontSize: 25),
+                          )))
+            ],
           ),
         ),
       ),

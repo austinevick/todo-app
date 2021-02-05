@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:todo_app/provider/task_provider.dart';
@@ -41,20 +42,8 @@ class _HomeScreenState extends State<HomeScreen> {
           actions: [
             AddButton(
                 icon: Icons.add,
-                onTap: () => showGeneralDialog(
-                    transitionDuration: Duration(milliseconds: 400),
-                    barrierDismissible: true,
-                    barrierLabel: '',
-                    barrierColor: Colors.black.withOpacity(0.5),
-                    transitionBuilder:
-                        (ctx, animation, secondaryAnimation, widget) =>
-                            CustomDialog(
-                              secondaryAnimation: secondaryAnimation,
-                              primaryAnimation: animation,
-                              child: AddTaskScreen(),
-                            ),
-                    context: context,
-                    pageBuilder: (context, a1, a2) => null)),
+                onTap: () => showBarModalBottomSheet(
+                    context: context, builder: (context) => AddTaskScreen())),
             PopupMenuButton(onSelected: (TaskFilter selectedValue) {
               if (selectedValue == TaskFilter.ALLTASKS) {
                 setState(() => completedTasks = false);

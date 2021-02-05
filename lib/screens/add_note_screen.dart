@@ -22,7 +22,7 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
   final titleController = new TextEditingController();
   var date = DateFormat.yMMMd().add_Hm().format(DateTime.now());
 
-  final picker = ImagePicker();
+  /* final picker = ImagePicker();
   File imageFile;
   Uint8List bytes;
   Future getImage() async {
@@ -31,7 +31,7 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
       imageFile = File(pickedFile.path);
       bytes = imageFile.readAsBytesSync();
     });
-  }
+  }*/
 
   @override
   void initState() {
@@ -100,14 +100,6 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
                     ),
                   ),
                 ),
-                imageFile == null
-                    ? SizedBox.shrink()
-                    : Image.file(
-                        imageFile,
-                        height: 80,
-                        width: 80,
-                        fit: BoxFit.cover,
-                      ),
               ],
             ),
             Divider(),
