@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/models/task.dart';
 import 'package:todo_app/provider/task_provider.dart';
@@ -14,13 +13,12 @@ class AddTaskScreen extends StatefulWidget {
 
 class _AddTaskScreenState extends State<AddTaskScreen> {
   final titleController = new TextEditingController();
-  var currentTime;
+  var currentTime = TimeOfDay.now();
 
   @override
   void initState() {
-    currentTime = TimeOfDay.now().format(context);
     if (widget.task != null) {
-      titleController.text = widget.task.title;
+      this.titleController.text = widget.task.title;
       currentTime = widget.task.date;
     }
     super.initState();

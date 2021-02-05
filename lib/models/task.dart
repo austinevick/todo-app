@@ -1,10 +1,12 @@
+import 'package:flutter/material.dart';
+
 import 'category.dart';
 
 class Task {
   int id;
   String title;
   TaskCategory categories;
-  String date;
+  TimeOfDay date;
   int complete;
   Task({
     this.id,
@@ -28,7 +30,7 @@ class Task {
       'id': this.id,
       'title': this.title,
       'categories': this.categories,
-      'date': this.date,
+      'date': this.date.toString(),
       'completed': this.complete
     };
   }
