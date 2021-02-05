@@ -13,7 +13,7 @@ class AddTaskScreen extends StatefulWidget {
 
 class _AddTaskScreenState extends State<AddTaskScreen> {
   final titleController = new TextEditingController();
-  var currentTime = TimeOfDay.now();
+  var currentTime;
 
   @override
   void initState() {
